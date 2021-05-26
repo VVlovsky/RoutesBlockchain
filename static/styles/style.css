@@ -1,0 +1,235 @@
+body {
+    background-color: #0f0f0f;
+    color: white;
+
+}
+
+html, body {
+    height: 99%;
+}
+
+.plate {
+    background-color: #191919;
+    border-radius: 30px;
+    border: 1px solid #22e100;
+    margin: 5px;
+    text-align: center;
+}
+
+#main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#up_bar {
+    height: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#up_bar p {
+    display: flex;
+    justify-content: center;
+
+    padding: 0 40px;
+    font-weight: bold;
+    color: #22E100;
+
+}
+
+#name {
+    font-size: 30px;
+    letter-spacing: 4px;
+    word-spacing: 15px;
+}
+
+#up_layer {
+    height: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#full_left_layer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 70%;
+}
+
+#up_left_layer {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#up_right_layer {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#up_right_up_layer {
+    height: 55%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#deaths_plate {
+    width: 50%;
+
+}
+
+#recovered_plate {
+    width: 50%;
+
+}
+
+#plot_plate {
+    height: 45%;
+    display: flex;
+    justify-content: center;
+}
+
+#bottom_layer {
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#options {
+    width: 80%;
+}
+
+#simulate {
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#simulate_btn {
+    color: #22E100;
+    font-weight: bold;
+    font-size: 30px;
+    height: 100%;
+    width: 100%;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 60px;
+}
+
+#confirmed_plate {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    text-align: center;
+    width: 20%;
+}
+
+#cpt {
+    height: 20%;
+}
+
+#cpb {
+    height: 80%;
+}
+
+#confirmed_plate h1 {
+
+
+    color: #22E100;
+}
+
+#deaths_plate h1 {
+    color: red;
+}
+
+#recovered_plate h1 {
+    color: green;
+}
+
+
+#map_plate {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    /*min-width: 300px;*/
+}
+
+#plot {
+    margin: 10px;
+
+    max-width: 90%;
+    max-height: 90%;
+
+}
+
+#map_with_text {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#map {
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    border: 1px solid #22E100;
+    overflow: hidden;
+}
+
+#map .mapboxgl-popup-content {
+    padding: 10px;
+    max-width: 300px;
+    padding-top: 20px;
+    color: black;
+}
+
+#map .mapboxgl-popup-content ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+
+#map .mapboxgl-popup-content ul h3 {
+    margin: 0 0 10px 0;
+}
+
+#map .mapboxgl-popup-content img {
+    float: left;
+    width: 30px;
+    margin-right: 10px;
+}
+
+#map_text {
+    position: absolute;
+    font-size: 30px;
+    padding: 0 0;
+    right: 4%;
+    top: 0.1%;
+    font-weight: bold;
+    color: #22E100;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+
