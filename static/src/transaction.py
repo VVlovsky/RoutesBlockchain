@@ -8,7 +8,3 @@ class Transaction:
         self.trajectory_length = route_length
         self.coordinates = coordinates
 
-    @staticmethod
-    def generate_hash(block):
-        # Хеширует блок
-        pass

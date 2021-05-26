@@ -16,10 +16,11 @@ def index(request):
     return render(request, 'main_page/index.html', context)
 
 
-def full_chain():
+def full_chain(*args):
+    print(*args)
     response = {
-        'chain': blockchain.chain,
-        'length': len(blockchain.chain),
+        'chain': blockchain.blockchain,
+        'length': len(blockchain.blockchain),
     }
     return HttpResponse(status=200, content=json.dumps(response))
 
@@ -35,7 +36,8 @@ def new_transaction(request):
     return HttpResponse(status=201, content=json.dumps(response))
 
 
-def mine():
+def mine(*args):
+    print(args)
     last_block = blockchain.last_block
     last_proof = last_block['proof']
     proof = blockchain.mine(last_proof)
@@ -50,5 +52,44 @@ def mine():
         'proof': block['proof'],
         'previous_hash': block['previous_hash'],
     }
+
+    return HttpResponse(status=200, content=json.dumps(response))
+
+
+# @app.route('/nodes/register', methods=['POST'])
+def register_nodes(request):
+    # print("ans: ")
+    # print(request.body)
+    values = json.loads(request.body)
+    print(values)
+    nodes = values.get('nodes')
+    if nodes is None:
+        return "Error: Please supply a valid list of nodes", 400
+
+    for node in nodes:
+        blockchain.register_node(node)
+
+    response = {
+        'message': 'New nodes have been added',
+        'total_nodes': list(blockchain.nodes),
+    }
+    return HttpResponse(status=201, content=json.dumps(response))
+
+
+# @app.route('/nodes/resolve', methods=['GET'])
+def consensus(*args):
+    print(args)
+    replaced = blockchain.resolve_conflicts()
+
+    if replaced:
+        response = {
+            'message': 'Our chain was replaced',
+            'new_chain': blockchain.blockchain
+        }
+    else:
+        response = {
+            'message': 'Our chain is authoritative',
+            'chain': blockchain.blockchain
+        }
 
     return HttpResponse(status=200, content=json.dumps(response))

@@ -1,29 +1,73 @@
 import hashlib
 from time import time
 
-import numpy as np
-
+from urllib.parse import urlparse
 from static.src.block import Block
+import requests
 
 
 class Blockchain(object):
     def __init__(self):
         self.blockchain = []
         self.current_transactions = []
+        self.nodes = set()
         self.init_genesis()
 
     def init_genesis(self):
         self.new_block(previous_hash=1, proof=100)
 
-    def get_coordinates(self):
-        pass
+    def register_node(self, address):
+        # print(address)
+        # parsed_url = urlparse(address)
+        # print(parsed_url.netloc)
+        self.nodes.add(address)
+
+    def validate(self, chain):
+        last_block = chain[0]
+        current_index = 1
+
+        while current_index < len(chain):
+            block = chain[current_index]
+            print(f'{last_block}')
+            print(f'{block}')
+            print("\n-----------\n")
+            if block['previous_hash'] != Block.generate_hash(last_block):
+                return False
+
+            if not self.valid_proof(last_block['proof'], block['proof']):
+                return False
+
+            last_block = block
+            current_index += 1
+
+        return True
+
+    def resolve_conflicts(self):
+
+        neighbours = self.nodes
+        new_chain = None
+
+        max_length = len(self.blockchain)
+
+        for node in neighbours:
+            response = requests.get(f'http://{node}/chain')
+
+            if response.status_code == 200:
+                length = response.json()['length']
+                chain = response.json()['chain']
+
+                if length > max_length and self.validate(chain):
+                    max_length = length
+                    new_chain = chain
+
+        if new_chain:
+            self.blockchain = new_chain
+            return True
+        return False
 
     @property
     def last_block(self):
         return self.blockchain[-1]
-
-    def validate(self):
-        pass
 
     def mine(self, last_proof):
         proof = 0
@@ -47,7 +91,6 @@ class Blockchain(object):
             'previous_hash': previous_hash or Block.generate_hash(self.last_block),
         }
 
-        # Перезагрузка текущего списка транзакций
         self.current_transactions = []
 
         self.blockchain.append(block)
