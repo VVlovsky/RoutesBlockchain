@@ -1,7 +1,6 @@
 import hashlib
 from time import time
 
-from urllib.parse import urlparse
 from static.src.block import Block
 import requests
 

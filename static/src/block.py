@@ -1,7 +1,6 @@
 import hashlib
 import json
 
-import numpy as np
 
 
 class Block:
