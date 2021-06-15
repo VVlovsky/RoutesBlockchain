@@ -5,3 +5,8 @@ cd RoutesBlockchain
 
 pip install -r requirements.txt
 
+IP=$(curl ifconfig.me)
+
+IPPORT=$(echo $IP:8000)
+
+python manage.py runserver $IPPORT
