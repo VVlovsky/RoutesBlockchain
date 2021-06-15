@@ -3,10 +3,10 @@ import requests
 from time import sleep
 
 
-def generate_transaction():
+def generate_transaction(node):
     result = {}
     sender_id = ''.join(str(random.choice(range(10))) for _ in range(16))
-    result |= {"sender_id": sender_id}
+    result |= {"sender_id": node}
     x = random.randint(0, 100)
     y = random.randint(0, 100)
     route = []
@@ -17,8 +17,8 @@ def generate_transaction():
         else:
             y += random.choice([-1, 1])
         route.append(f'{x}, {y}')
-    result |= {"coordinates": sender_id}
-    result |= {"route_length": sender_id}
+    result |= {"coordinates": route}
+    result |= {"route_length": route_length}
 
     return result
 
@@ -49,10 +49,9 @@ while True:
     print(r.status_code, r.reason)
     for i in range(random.randint(1, 5)):
         print(f'Running new transaction on node {nodes[node_id]}')
-        r = requests.post(f'{nodes[node_id]}:8000/transactions/new', json=generate_transaction())
+        r = requests.post(f'{nodes[node_id]}:8000/transactions/new', json=generate_transaction(nodes_clean[node_id]))
         print(r.status_code, r.reason)
 
     print(f'Running mine on node {nodes[node_id]}')
     r = requests.get(f'{nodes[node_id]}:8000/mine')
     print(r.status_code, r.reason)
-    sleep(2)
