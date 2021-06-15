@@ -25,4 +25,7 @@ urlpatterns = [
     path('mine', views.mine),
     path('transactions/new', views.new_transaction),
     path('chain', views.full_chain),
+    path('nodes/register', views.register_nodes),
+    path('nodes/resolve', views.consensus),
+
 ]
