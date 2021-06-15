@@ -9,4 +9,4 @@ IP=$(curl ifconfig.me)
 
 IPPORT=$(echo $IP:8000)
 
-python manage.py runserver $IPPORT
+python3 manage.py runserver $IPPORT
