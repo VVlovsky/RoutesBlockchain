@@ -33,6 +33,7 @@ def new_transaction(request):
 
     transaction_id = blockchain.new_transaction(data['sender_id'], data['coordinates'], data['route_length'])
     response = {'message': f'Transaction will be added to Block {transaction_id}'}
+    print(response)
     return HttpResponse(status=201, content=json.dumps(response))
 
 
@@ -52,6 +53,7 @@ def mine(*args):
         'proof': block['proof'],
         'previous_hash': block['previous_hash'],
     }
+    print(response)
 
     return HttpResponse(status=200, content=json.dumps(response))
 
@@ -63,6 +65,8 @@ def register_nodes(request):
     values = json.loads(request.body)
     print(values)
     nodes = values.get('nodes')
+    print("Registered neighbours:")
+    print(nodes)
     if nodes is None:
         return "Error: Please supply a valid list of nodes", 400
 
@@ -91,5 +95,5 @@ def consensus(*args):
             'message': 'Our chain is authoritative',
             'chain': blockchain.blockchain
         }
-
+    print(response)
     return HttpResponse(status=200, content=json.dumps(response))
